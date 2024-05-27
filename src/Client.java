@@ -1,7 +1,7 @@
 /* CLIENT */
 import java.io.*;
 import java.net.*;
-public class NetWorkingClient {
+public class Client {
     public static void main(String args[]) {
         Socket client = null;
 
@@ -17,7 +17,6 @@ public class NetWorkingClient {
 
                 // Create a client socket
                 client = new Socket(InetAddress.getLocalHost(), portNumber);
-                System.out.println("Client socket is created " + client);
 
                 // Create an output stream of the client socket
                 OutputStream clientOut = client.getOutputStream();
@@ -30,15 +29,23 @@ public class NetWorkingClient {
                 // Create BufferedReader for standard input
                 BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 
-                System.out.println("Enter your name. Type Bye to exit. ");
+                while(true) {
+                    System.out.println("Skriv ett matte tal (ex. 5+8)");
 
-                // Read data from standard input device and write it
-                // to the output stream of the client socket.
-                msg = stdIn.readLine().trim();
+                    // Read data from standard input device and write it
+                    // to the output stream of the client socket.
+                    msg = stdIn.readLine().trim();
+                    String symbols = "+-*/";
+                    if (!Character.isDigit(msg.toCharArray()[0]) || !Character.isDigit(msg.toCharArray()[2]) || symbols.indexOf(msg.toCharArray()[1]) == (-1)) {
+                        System.out.println("Inte rätt form");
+                    } else {
+                        break;
+                    }
+                }
                 pw.println(msg);
 
                 // Read data from the input stream of the client socket
-                System.out.println("Message returned from the server = " + br.readLine());
+                System.out.println(br.readLine());
                 pw.close();
                 br.close();
                 client.close();
