@@ -29,6 +29,7 @@ public class Client {
                 // Create BufferedReader for standard input
                 BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 
+                // Loop to make sure that input is correct
                 while(true) {
                     System.out.println("Skriv ett matte tal (ex. 5+8)");
 
@@ -36,6 +37,7 @@ public class Client {
                     // to the output stream of the client socket.
                     msg = stdIn.readLine().trim();
                     String symbols = "+-*/";
+                    // Checks if input is in correct format
                     if (!Character.isDigit(msg.toCharArray()[0]) || !Character.isDigit(msg.toCharArray()[2]) || symbols.indexOf(msg.toCharArray()[1]) == (-1)) {
                         System.out.println("Inte rätt form");
                     } else {
